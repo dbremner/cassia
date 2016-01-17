@@ -312,7 +312,7 @@ namespace Cassia.Impl
                                                                       out retLen) != 0)
             {
                 var ipAddress = ExtractIPAddress(remoteAddress.Family, remoteAddress.Address);
-                int port = NativeMethods.ntohs((ushort) remoteAddress.Port);
+                int port = IPAddress.NetworkToHostOrder(remoteAddress.Port);
                 return ipAddress == null ? null : new IPEndPoint(ipAddress, port);
             }
             throw new Win32Exception();

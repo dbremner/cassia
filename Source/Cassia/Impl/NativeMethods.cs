@@ -64,9 +64,6 @@ namespace Cassia.Impl
         [DllImport("wtsapi32.dll", SetLastError = true)]
         public static extern int WTSTerminateProcess(IntPtr hServer, int processId, int exitCode);
 
-        [DllImport("ws2_32.dll")]
-        public static extern ushort ntohs(ushort netValue);
-
         [DllImport("kernel32.dll")]
         public static extern int FileTimeToSystemTime(ref FILETIME fileTime, ref SYSTEMTIME systemTime);
 
