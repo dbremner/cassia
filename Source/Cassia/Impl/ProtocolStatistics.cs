@@ -13,11 +13,9 @@ namespace Cassia.Impl
             _compressedBytes = compressedBytes;
         }
 
-        public ProtocolStatistics(PROTOCOLCOUNTERS counters)
+        public ProtocolStatistics(PROTOCOLCOUNTERS counters) :
+            this(counters.Bytes, counters.Frames, counters.CompressedBytes)
         {
-            _bytes = counters.Bytes;
-            _frames = counters.Frames;
-            _compressedBytes = counters.CompressedBytes;
         }
 
         #region IProtocolStatistics Members
