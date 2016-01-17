@@ -20,7 +20,7 @@ namespace Cassia.Impl
         {
             if (serverName == null)
             {
-                throw new ArgumentNullException("serverName");
+                throw new ArgumentNullException(nameof(serverName));
             }
             _serverName = serverName;
         }
