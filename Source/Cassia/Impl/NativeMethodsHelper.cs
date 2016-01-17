@@ -60,6 +60,10 @@ namespace Cassia.Impl
 
         public static WINSTATIONINFORMATIONW GetWinStationInformation(ITerminalServerHandle server, int sessionId)
         {
+            if (server == null)
+            {
+                throw new ArgumentNullException(nameof(server));
+            }
             var retLen = 0;
             var wsInfo = new WINSTATIONINFORMATIONW();
             if (
@@ -92,6 +96,10 @@ namespace Cassia.Impl
 
         public static IList<WTS_SESSION_INFO> GetSessionInfos(ITerminalServerHandle server)
         {
+            if (server == null)
+            {
+                throw new ArgumentNullException(nameof(server));
+            }
             IntPtr ppSessionInfo;
             int count;
 
@@ -111,6 +119,10 @@ namespace Cassia.Impl
 
         public static void LogoffSession(ITerminalServerHandle server, int sessionId, bool wait)
         {
+            if (server == null)
+            {
+                throw new ArgumentNullException(nameof(server));
+            }
             if (NativeMethods.WTSLogoffSession(server.Handle, sessionId, wait) == 0)
             {
                 throw new Win32Exception();
@@ -119,6 +131,10 @@ namespace Cassia.Impl
 
         public static void DisconnectSession(ITerminalServerHandle server, int sessionId, bool wait)
         {
+            if (server == null)
+            {
+                throw new ArgumentNullException(nameof(server));
+            }
             if (NativeMethods.WTSDisconnectSession(server.Handle, sessionId, wait) == 0)
             {
                 throw new Win32Exception();
@@ -128,6 +144,10 @@ namespace Cassia.Impl
         public static RemoteMessageBoxResult SendMessage(ITerminalServerHandle server, int sessionId, string title,
                                                          string message, int style, int timeout, bool wait)
         {
+            if (server == null)
+            {
+                throw new ArgumentNullException(nameof(server));
+            }
             RemoteMessageBoxResult result;
             // If you pass an empty title string to WTSSendMessage, Server 2003 returns a bizarre error code
             // (-2147467259: "The stub received bad data"). Windows 7 and Server 2008 R2 do not return an error code,
@@ -178,6 +198,14 @@ namespace Cassia.Impl
 
         public static void ForEachProcessInfo(ITerminalServerHandle server, ListProcessInfosCallback callback)
         {
+            if (server == null)
+            {
+                throw new ArgumentNullException(nameof(server));
+            }
+            if (callback == null)
+            {
+                throw new ArgumentNullException(nameof(callback));
+            }
             IntPtr ppProcessInfo;
             int count;
             if (NativeMethods.WTSEnumerateProcesses(server.Handle, 0, 1, out ppProcessInfo, out count) == 0)
@@ -208,6 +236,10 @@ namespace Cassia.Impl
 
         public static void TerminateProcess(ITerminalServerHandle server, int processId, int exitCode)
         {
+            if (server == null)
+            {
+                throw new ArgumentNullException(nameof(server));
+            }
             if (NativeMethods.WTSTerminateProcess(server.Handle, processId, exitCode) == 0)
             {
                 throw new Win32Exception();
@@ -222,6 +254,10 @@ namespace Cassia.Impl
 
         public static void ShutdownSystem(ITerminalServerHandle server, int flags)
         {
+            if (server == null)
+            {
+                throw new ArgumentNullException(nameof(server));
+            }
             if (NativeMethods.WTSShutdownSystem(server.Handle, flags) == 0)
             {
                 throw new Win32Exception();
@@ -262,6 +298,10 @@ namespace Cassia.Impl
 
         public static EndPoint QuerySessionInformationForEndPoint(ITerminalServerHandle server, int sessionId)
         {
+            if (server == null)
+            {
+                throw new ArgumentNullException(nameof(server));
+            }
             int retLen;
             var remoteAddress = new WINSTATIONREMOTEADDRESS();
             if (
@@ -281,6 +321,10 @@ namespace Cassia.Impl
         public static void LegacyStartRemoteControl(ITerminalServerHandle server, int sessionId, ConsoleKey hotkey,
                                                     RemoteControlHotkeyModifiers hotkeyModifiers)
         {
+            if (server == null)
+            {
+                throw new ArgumentNullException(nameof(server));
+            }
             if (
                 NativeMethods.WinStationShadow(server.Handle, server.ServerName, sessionId, (int) hotkey,
                                                (int) hotkeyModifiers) == 0)
@@ -292,6 +336,10 @@ namespace Cassia.Impl
         public static void StartRemoteControl(ITerminalServerHandle server, int sessionId, ConsoleKey hotkey,
                                               RemoteControlHotkeyModifiers hotkeyModifiers)
         {
+            if (server == null)
+            {
+                throw new ArgumentNullException(nameof(server));
+            }
             if (
                 NativeMethods.WTSStartRemoteControlSession(server.ServerName, sessionId, (byte) hotkey,
                                                            (short) hotkeyModifiers) == 0)
@@ -302,6 +350,10 @@ namespace Cassia.Impl
 
         public static void LegacyStopRemoteControl(ITerminalServerHandle server, int sessionId, bool wait)
         {
+            if (server == null)
+            {
+                throw new ArgumentNullException(nameof(server));
+            }
             // TODO: Odd that this doesn't return an error code for sessions that do not exist.
             if (NativeMethods.WinStationShadowStop(server.Handle, sessionId, wait) == 0)
             {
@@ -320,6 +372,10 @@ namespace Cassia.Impl
         public static void LegacyConnect(ITerminalServerHandle server, int sourceSessionId, int targetSessionId,
                                          string password, bool wait)
         {
+            if (server == null)
+            {
+                throw new ArgumentNullException(nameof(server));
+            }
             if (NativeMethods.WinStationConnectW(server.Handle, targetSessionId, sourceSessionId, password, wait) == 0)
             {
                 throw new Win32Exception();

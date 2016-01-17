@@ -10,6 +10,10 @@ namespace Cassia.Tests
 
         public ServerContext(ServerConfiguration config)
         {
+            if (config == null)
+            {
+                throw new ArgumentNullException(nameof(config));
+            }
             _source = new ServerConnection(config.Source);
             _target = config.Local ? _source : new ServerConnection(config.Target);
         }

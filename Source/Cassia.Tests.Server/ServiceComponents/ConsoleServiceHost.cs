@@ -8,6 +8,10 @@ namespace Cassia.Tests.Server.ServiceComponents
 
         public void Run(IHostedService service)
         {
+            if (service == null)
+            {
+                throw new ArgumentNullException(nameof(service));
+            }
             service.Attach(this);
             Logger.Log(string.Format("Starting service {0}...", service.Name));
             service.Start();

@@ -41,6 +41,10 @@ namespace Cassia.Tests.Server
 
         public static IDisposable Impersonate(ConnectionDetails connection)
         {
+            if (connection == null)
+            {
+                throw new ArgumentNullException(nameof(connection));
+            }
             var token = IntPtr.Zero;
             if (
                 LogonUser(connection.Username, connection.Domain, connection.Password, LogonType.Interactive,

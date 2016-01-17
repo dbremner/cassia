@@ -16,6 +16,10 @@ namespace Cassia.Tests
 
         public RdpConnection(ServerConnection context)
         {
+            if (context == null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
             _context = context;
 
             _connectedEvent = new ManualResetEvent(false);

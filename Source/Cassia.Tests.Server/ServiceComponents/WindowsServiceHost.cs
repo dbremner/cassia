@@ -1,3 +1,4 @@
+using System;
 using System.ServiceProcess;
 
 namespace Cassia.Tests.Server.ServiceComponents
@@ -10,6 +11,10 @@ namespace Cassia.Tests.Server.ServiceComponents
 
         public void Run(IHostedService service)
         {
+            if (service == null)
+            {
+                throw new ArgumentNullException(nameof(service));
+            }
             _service = service;
             ServiceName = _service.Name;
             Logger.SetLogger(new EventLogLogger(EventLog));

@@ -348,6 +348,10 @@ namespace Cassia.Impl
 
         public void Connect(ITerminalServicesSession target, string password, bool synchronous)
         {
+            if (target == null)
+            {
+                throw new ArgumentNullException(nameof(target));
+            }
             if (!Local)
             {
                 throw new InvalidOperationException("Cannot connect sessions that are running on remote servers");
